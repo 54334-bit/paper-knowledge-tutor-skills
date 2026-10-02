@@ -1,0 +1,150 @@
+[
+  {
+    "id": "P01",
+    "kind": "behavior",
+    "skill": "paper-tutor",
+    "fixture": "evals/fixtures/sample-paper.md",
+    "prompt": "我学过线性回归和基础统计，想精讲 sample-paper.md 的方法和实验。请先开始。",
+    "expected": [
+      "首条只给论文宏观概述与章节地图",
+      "首条不详讲第2章或第3章",
+      "说明下一批是第2章和第3章"
+    ]
+  },
+  {
+    "id": "P02",
+    "kind": "behavior",
+    "skill": "paper-tutor",
+    "fixture": "evals/fixtures/sample-paper.md",
+    "prompt": "承接 P01 的宏观概述，继续论文精讲。",
+    "expected": [
+      "同一输出讲第2章和第3章",
+      "不提前详讲第4章",
+      "保留未详讲图表索引"
+    ]
+  },
+  {
+    "id": "P03",
+    "kind": "behavior",
+    "skill": "paper-tutor",
+    "fixture": "evals/fixtures/sample-paper.md",
+    "prompt": "承接 P02，继续。",
+    "expected": [
+      "同一输出讲第4章和第5章",
+      "核心图表随所属章节解释",
+      "不把实验结果说成普遍有效"
+    ]
+  },
+  {
+    "id": "P04",
+    "kind": "behavior",
+    "skill": "paper-tutor",
+    "fixture": "evals/fixtures/sample-paper.md",
+    "prompt": "承接 P03，我先问第3章的图3。它说明了什么？回答后继续原来的阅读进度。",
+    "expected": [
+      "仅回答图3及必要上下文",
+      "不把第6章或第7章记为已讲",
+      "下次章节批次仍从第6章开始"
+    ]
+  },
+  {
+    "id": "P05",
+    "kind": "behavior",
+    "skill": "paper-tutor",
+    "fixture": "evals/fixtures/sample-paper.md",
+    "prompt": "承接 P03 的正常进度，继续精讲。",
+    "expected": [
+      "同一输出讲第6章和第7章",
+      "完成后给基于证据的全文综合",
+      "不重新详细讲前五章"
+    ]
+  },
+  {
+    "id": "P06",
+    "kind": "behavior",
+    "skill": "paper-tutor",
+    "prompt": "我只有一篇论文的摘要，全文和图表都拿不到。请把整篇论文的实验充分性详细讲清楚。",
+    "expected": [
+      "说明材料不足",
+      "不伪称完成全文精讲",
+      "不编造实验数字或图表"
+    ]
+  },
+  {
+    "id": "P07",
+    "kind": "trigger",
+    "skill": "none",
+    "prompt": "帮我系统检索近五年所有用 ARIMA 做电力负荷预测的论文。",
+    "expected": [
+      "不触发 paper-tutor 的单篇论文讲解流程",
+      "按文献检索任务处理"
+    ]
+  },
+  {
+    "id": "P08",
+    "kind": "trigger",
+    "skill": "paper-tutor",
+    "fixture": "evals/fixtures/sample-paper.md",
+    "prompt": "这篇 sample-paper.md 的第4章表1到底支持作者哪个结论？",
+    "expected": [
+      "使用论文局部问题路线",
+      "不要求完整学习自述",
+      "区分作者主张与表1证据"
+    ]
+  },
+  {
+    "id": "K01",
+    "kind": "behavior",
+    "skill": "knowledge-tutor",
+    "prompt": "系统教我 ARIMA 模型。",
+    "expected": [
+      "一次性询问尚缺的背景、前置知识、目标、深度和辅助材料",
+      "未取得足够自述前不假装完成路线判断"
+    ]
+  },
+  {
+    "id": "K02",
+    "kind": "behavior",
+    "skill": "knowledge-tutor",
+    "prompt": "我是统计学本科三年级，学过平稳时间序列、ACF/PACF 和极大似然，但没有系统学过 ARIMA；目标是能独立建模、诊断并解释预测。希望系统精讲，手头没有教材或项目材料。",
+    "expected": [
+      "按模型学习目标规划完整路径",
+      "不因学历推断已掌握更多知识",
+      "说明必要前置知识由学习者自行补充",
+      "包含与目标一致的非阻塞迁移检验"
+    ]
+  },
+  {
+    "id": "K03",
+    "kind": "behavior",
+    "skill": "knowledge-tutor",
+    "prompt": "我会 Python 基础，想系统理解 Transformer 的数据流，目标是能读懂各模块代码。希望系统讲解，没有辅助材料，但我不会矩阵乘法。",
+    "expected": [
+      "明确矩阵乘法是独立前置知识并给自学范围与程度",
+      "不在 Transformer 主流程中讲授完整线性代数课程",
+      "仍解释 Transformer 自定义的符号和模块"
+    ]
+  },
+  {
+    "id": "K04",
+    "kind": "trigger",
+    "skill": "none",
+    "prompt": "这三行 C++ 循环代码为什么报错？请直接指出错误。",
+    "expected": [
+      "不启动系统知识讲解入口",
+      "直接处理局部代码问题"
+    ]
+  },
+  {
+    "id": "K05",
+    "kind": "trigger",
+    "skill": "knowledge-tutor",
+    "prompt": "我已经读完那篇论文。现在想把 ARIMA 作为独立主题系统学会。我是工科研究生，懂概率与线性回归，目标是自己做建模和残差诊断，期望精讲，无辅助材料。",
+    "expected": [
+      "切换为知识主题主流程",
+      "不把论文内容自动当作通用模型事实",
+      "不重启论文精讲进度"
+    ]
+  }
+]
+
