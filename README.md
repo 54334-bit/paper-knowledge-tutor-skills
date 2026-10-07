@@ -26,9 +26,21 @@ scripts/
   validate.mjs
 .github/workflows/
   validate.yml
+.trae/skills/
+  paper-tutor/SKILL.md
+  knowledge-tutor/SKILL.md
+prompts/
+  llm-paper-tutor.md
+  llm-knowledge-tutor.md
 ```
 
 每个 skill 都有独立目录和标准文件名 `SKILL.md`。它们不依赖本项目之外的脚本才能工作。支持 Agent Skills 的客户端可按自身说明加载单个目录；各客户端的显式调用语法可能不同，使用自然语言描述任务也可触发。有关标准目录与元数据约束，见 [Agent Skills 规范](https://agentskills.io/specification)。
+
+## TRAE 使用与 LLM Prompt
+
+`.trae/skills/` 保存两份技能的 TRAE 项目级副本。用 TRAE 打开本项目后，可在“设置 > 技能与命令”中启用或导入项目技能。两份 `SKILL.md` 与 `skills/` 下的发布源保持一致。
+
+`prompts/` 下的两个文件是面向普通 LLM 对话的纯 prompt 版本，不含 Agent Skills 元数据、仓库工具、自动化或 CI 约定。可将对应文件全文作为系统提示词或首条指令；若模型不支持持久系统提示，可在新对话首条消息中粘贴，并按其上下文窗口调整论文材料范围。
 
 ## 本地验证
 

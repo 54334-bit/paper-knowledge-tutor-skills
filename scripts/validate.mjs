@@ -62,6 +62,19 @@ for (const name of skills) {
     fail(`${name}: entrypoint exceeds 500 lines; consider on-demand references`);
   }
   checkLocalLinks(text, directory, name);
+
+  const traeCopy = join(root, '.trae', 'skills', name, 'SKILL.md');
+  if (!existsSync(traeCopy)) {
+    fail(`${name}: missing TRAE project-skill backup`);
+  } else if (readUtf8(traeCopy).replace(/\r\n/g, '\n') !== text) {
+    fail(`${name}: TRAE project-skill backup differs from release source`);
+  }
+}
+
+for (const file of ['prompts/llm-paper-tutor.md', 'prompts/llm-knowledge-tutor.md']) {
+  const path = join(root, file);
+  if (!existsSync(path)) fail(`${file}: missing`);
+  else if (!readUtf8(path).trim()) fail(`${file}: empty`);
 }
 
 const evalPath = join(root, 'evals', 'cases.json');
